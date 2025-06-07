@@ -8,6 +8,7 @@ It analyzes job descriptions, evaluates resumes, researches target companies, an
 
 ## Project Structure
 
+```bash
 resume-optimization-crew/
 │
 ├── main.py # Entry point: run the crew with job URL & company name
@@ -16,6 +17,7 @@ resume-optimization-crew/
 ├── config/ # Agent roles and task descriptions
 ├── tools/ # Custom tools (e.g. PDF reader, web scraper)
 └── output/ # Generated markdown files and analysis
+```
 
 ## 🧩 Core Components
 
@@ -50,6 +52,6 @@ resume-optimization-crew/
 
 ## 📌 Sample Outputs
 
-- ✅ optimized_resume.md – Job-specific improved resume
-- 📄 final_report.md – AI-generated suggestions, insights & summary
-- 📊 JSON files – Structured results for further use
+- optimized_resume.md – Job-specific improved resume
+- final_report.md – AI-generated suggestions, insights & summary
+- JSON files – Structured results for further use
