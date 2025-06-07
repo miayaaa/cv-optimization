@@ -2,6 +2,7 @@ from main import run_with_inputs
 import streamlit as st
 import sys
 import os
+import json
 
 
 st.set_page_config(page_title="Resume Optimization Agent", layout="centered")
@@ -44,3 +45,20 @@ if st.session_state.done:
         data=open("output/final_report.md", encoding="utf-8").read(),
         file_name="final_report.md"
     )
+
+    # ✅ Show ATS Optimization Summary
+    if os.path.exists("output/ats_optimization.json"):
+        ats = json.load(open("output/ats_optimization.json", encoding="utf-8"))
+
+        st.markdown("### 🧠 ATS Optimization Summary")
+        st.metric("🔍 Keyword Match Score", f"{ats.get('keyword_score', 0)}%")
+
+        with st.expander("❗ Missing Keywords"):
+            if ats.get("missing_keywords"):
+                st.write(", ".join(ats["missing_keywords"]))
+            else:
+                st.write("No missing keywords detected.")
+
+        with st.expander("✏️ Optimization Suggestions"):
+            for s in ats.get("optimization_suggestions", []):
+                st.markdown(f"- {s}")

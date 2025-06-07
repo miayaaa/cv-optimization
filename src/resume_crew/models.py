@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Annotated
 from pydantic import BaseModel, Field, confloat
 
 
@@ -6,35 +6,27 @@ class SkillScore(BaseModel):
     skill_name: str = Field(description="Name of the skill being scored")
     required: bool = Field(
         description="Whether this skill is required or nice-to-have")
-    match_level: confloat(ge=0, le=1) = Field(
-        description="How well the candidate's experience matches (0-1)")
+    match_level: Annotated[float, Field(
+        ge=0, le=1, description="How well the candidate's experience matches (0-1)")]
     years_experience: Optional[float] = Field(
         description="Years of experience with this skill", default=None)
-    context_score: confloat(ge=0, le=1) = Field(
-        description="How relevant the skill usage context is to the job requirements",
-        default=0.5
-    )
+    context_score: Annotated[float, Field(
+        ge=0, le=1, description="How relevant the skill usage context is to the job requirements")] = 0.5
 
 
 class JobMatchScore(BaseModel):
-    overall_match: confloat(ge=0, le=100) = Field(
-        description="Overall match percentage (0-100)"
-    )
-    technical_skills_match: confloat(ge=0, le=100) = Field(
-        description="Technical skills match percentage"
-    )
-    soft_skills_match: confloat(ge=0, le=100) = Field(
-        description="Soft skills match percentage"
-    )
-    experience_match: confloat(ge=0, le=100) = Field(
-        description="Experience level match percentage"
-    )
-    education_match: confloat(ge=0, le=100) = Field(
-        description="Education requirements match percentage"
-    )
-    industry_match: confloat(ge=0, le=100) = Field(
-        description="Industry experience match percentage"
-    )
+    overall_match: Annotated[float, Field(
+        ge=0, le=100, description="Overall match percentage (0-100)")]
+    technical_skills_match: Annotated[float, Field(
+        ge=0, le=100, description="Technical skills match percentage")]
+    soft_skills_match: Annotated[float, Field(
+        ge=0, le=100, description="Soft skills match percentage")]
+    experience_match: Annotated[float, Field(
+        ge=0, le=100, description="Experience level match percentage")]
+    education_match: Annotated[float, Field(
+        ge=0, le=100, description="Education requirements match percentage")]
+    industry_match: Annotated[float, Field(
+        ge=0, le=100, description="Industry experience match percentage")]
     skill_details: List[SkillScore] = Field(
         description="Detailed scoring for each skill",
         default_factory=list
@@ -187,6 +179,21 @@ class JobRequirements(BaseModel):
     score_explanation: List[str] = Field(
         description="Detailed explanation of how scores were calculated",
         default_factory=list
+    )
+
+
+class ATSOptimization(BaseModel):
+    missing_keywords: List[str] = Field(
+        default_factory=list,
+        description="Important keywords from job description that are missing in the resume"
+    )
+    optimization_suggestions: List[str] = Field(
+        default_factory=list,
+        description="Suggestions to incorporate missing keywords naturally into the resume"
+    )
+    keyword_score: float = Field(
+        default=0.0,
+        description="Score indicating how well the resume aligns with ATS keyword requirements (0-100)"
     )
 
 

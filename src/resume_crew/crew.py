@@ -5,6 +5,7 @@ from crewai.knowledge.source.pdf_knowledge_source import PDFKnowledgeSource
 from .models import (
     JobRequirements,
     ResumeOptimization,
+    ATSOptimization,
     CompanyResearch
 )
 
@@ -36,6 +37,14 @@ class ResumeCrew():
             verbose=True,
             tools=[ScrapeWebsiteTool()],
             llm=LLM("gpt-3.5-turbo")
+        )
+
+    @agent
+    def ats_optimizer(self) -> Agent:
+        return Agent(
+            config=self.agents_config['ats_optimizer'],
+            llm=LLM("gpt-3.5-turbo"),
+            verbose=True
         )
 
     @agent
@@ -78,6 +87,14 @@ class ResumeCrew():
             config=self.tasks_config['optimize_resume_task'],
             output_file='output/resume_optimization.json',
             output_pydantic=ResumeOptimization
+        )
+
+    @task
+    def ats_optimize_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['ats_optimize_task'],
+            output_file='output/ats_optimization.json',
+            output_pydantic=ATSOptimization
         )
 
     @task

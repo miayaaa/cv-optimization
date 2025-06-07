@@ -77,6 +77,20 @@ optimize_resume_task:
   agent: resume_analyzer
   context: [analyze_job_task]
 
+ats_optimize_task:
+  description: >
+    Enhance the resume to align with ATS systems targeting data engineering, ML, or AI positions.
+    Detect weak keyword coverage and improve section relevance.
+
+    - Compare with job analysis
+    - Suggest keyword injections
+    - Align with ATS scanning patterns
+
+  expected_output: >
+    JSON containing ATS-specific optimization actions.
+  agent: ats_optimizer
+  context: [analyze_job_task, optimize_resume_task]
+
 research_company_task:
   description: >
     Research {company_name} and prepare the latest (year 2025) and comprehensive analysis.
@@ -98,7 +112,7 @@ research_company_task:
     Structured JSON data containing company research results according to
     the CompanyResearch model schema.
   agent: company_researcher
-  context: [analyze_job_task, optimize_resume_task]
+  context: [analyze_job_task, optimize_resume_task, ats_optimize_task]
 
 generate_resume_task:
   description: >
@@ -130,7 +144,7 @@ generate_resume_task:
     - Is ATS-friendly
     - Documents all changes made
   agent: resume_writer
-  context: [optimize_resume_task, analyze_job_task, research_company_task]
+  context: [optimize_resume_task, analyze_job_task, ats_optimize_task, research_company_task]
 
 generate_report_task:
   description: >
@@ -179,4 +193,5 @@ generate_report_task:
     A comprehensive markdown report that combines all analyses into an
     actionable, clear document with concrete next steps.
   agent: report_generator
-  context: [analyze_job_task, optimize_resume_task, research_company_task]
+  context: [analyze_job_task, optimize_resume_task, ats_optimize_task, research_company_task]
+
