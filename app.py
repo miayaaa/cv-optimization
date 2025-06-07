@@ -31,13 +31,14 @@ if st.button("🚀 Optimize Resume"):
         if os.path.exists("output/optimized_resume.md"):
             st.download_button(
                 "📥 Download Optimized Resume",
-                data=open("output/optimized_resume.md").read(),
+                data=open("output/optimized_resume.md",
+                          encoding="utf-8").read(),
                 file_name="optimized_resume.md"
             )
 
         if os.path.exists("output/final_report.md"):
             st.download_button(
                 "📥 Download Final Report",
-                data=open("output/final_report.md").read(),
+                data=open("output/final_report.md", encoding="utf-8").read(),
                 file_name="final_report.md"
             )
