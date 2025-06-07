@@ -33,7 +33,6 @@ resume-optimization-crew/
 4. **Generate Resume** – Writes a tailored resume
 5. **Generate Report** – Compiles all insights and outputs
 
----
 
 ## 🔄 Data Flow
 
@@ -41,7 +40,6 @@ resume-optimization-crew/
 - **Processing:** AI agents execute tasks sequentially
 - **Output:** JSON files + markdown resume & report in `/output/`
 
----
 
 ## 🛠 Tools Used
 
@@ -52,6 +50,6 @@ resume-optimization-crew/
 
 ## 📌 Sample Outputs
 
-✅ optimized_resume.md – Job-specific improved resume
-📄 final_report.md – AI-generated suggestions, insights & summary
-📊 JSON files – Structured results for further use
+- ✅ optimized_resume.md – Job-specific improved resume
+- 📄 final_report.md – AI-generated suggestions, insights & summary
+- 📊 JSON files – Structured results for further use
