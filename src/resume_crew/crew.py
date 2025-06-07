@@ -25,7 +25,7 @@ class ResumeCrew():
         return Agent(
             config=self.agents_config['resume_analyzer'],
             verbose=True,
-            llm=LLM("o1"),
+            llm=LLM("gpt-3.5-turbo"),
             knowledge_sources=[self.resume_pdf]
         )
 
@@ -35,7 +35,7 @@ class ResumeCrew():
             config=self.agents_config['job_analyzer'],
             verbose=True,
             tools=[ScrapeWebsiteTool()],
-            llm=LLM("o1")
+            llm=LLM("gpt-3.5-turbo")
         )
 
     @agent
@@ -44,7 +44,7 @@ class ResumeCrew():
             config=self.agents_config['company_researcher'],
             verbose=True,
             tools=[SerperDevTool()],
-            llm=LLM("o1"),
+            llm=LLM("gpt-3.5-turbo"),
             knowledge_sources=[self.resume_pdf]
         )
 
@@ -53,7 +53,7 @@ class ResumeCrew():
         return Agent(
             config=self.agents_config['resume_writer'],
             verbose=True,
-            llm=LLM("o1")
+            llm=LLM("gpt-3.5-turbo")
         )
 
     @agent
@@ -61,7 +61,7 @@ class ResumeCrew():
         return Agent(
             config=self.agents_config['report_generator'],
             verbose=True,
-            llm=LLM("o1")
+            llm=LLM("gpt-3.5-turbo")
         )
 
     @task

@@ -3,8 +3,11 @@ import os
 from main import run_with_inputs
 
 
-st.set_page_config(page_title="Resume Optimization System", layout="centered")
-st.title("🧠 Resume Optimization System")
+st.set_page_config(page_title="Resume Optimization Agent", layout="centered")
+st.title("🧠 Resume Optimization Agent")
+
+if "done" not in st.session_state:
+    st.session_state.done = False
 
 # User inputs
 job_url = st.text_input("🔗 Enter the job URL (e.g., LinkedIn)")
@@ -25,20 +28,18 @@ if st.button("🚀 Optimize Resume"):
         with st.spinner("Running AI agents... please wait."):
             run_with_inputs(job_url, company_name, resume_path)
 
+        st.session_state.done = True
         st.success("✅ Resume optimization complete!")
 
-        # Show download options
-        if os.path.exists("output/optimized_resume.md"):
-            st.download_button(
-                "📥 Download Optimized Resume",
-                data=open("output/optimized_resume.md",
-                          encoding="utf-8").read(),
-                file_name="optimized_resume.md"
-            )
-
-        if os.path.exists("output/final_report.md"):
-            st.download_button(
-                "📥 Download Final Report",
-                data=open("output/final_report.md", encoding="utf-8").read(),
-                file_name="final_report.md"
-            )
+# Show download options
+if st.session_state.done:
+    st.download_button(
+        "📥 Download Optimized Resume",
+        data=open("output/optimized_resume.md", encoding="utf-8").read(),
+        file_name="optimized_resume.md"
+    )
+    st.download_button(
+        "📥 Download Final Report",
+        data=open("output/final_report.md", encoding="utf-8").read(),
+        file_name="final_report.md"
+    )
