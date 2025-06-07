@@ -1,15 +1,20 @@
 from typing import List, Dict, Optional
 from pydantic import BaseModel, Field, confloat
 
+
 class SkillScore(BaseModel):
     skill_name: str = Field(description="Name of the skill being scored")
-    required: bool = Field(description="Whether this skill is required or nice-to-have")
-    match_level: confloat(ge=0, le=1) = Field(description="How well the candidate's experience matches (0-1)")
-    years_experience: Optional[float] = Field(description="Years of experience with this skill", default=None)
+    required: bool = Field(
+        description="Whether this skill is required or nice-to-have")
+    match_level: confloat(ge=0, le=1) = Field(
+        description="How well the candidate's experience matches (0-1)")
+    years_experience: Optional[float] = Field(
+        description="Years of experience with this skill", default=None)
     context_score: confloat(ge=0, le=1) = Field(
         description="How relevant the skill usage context is to the job requirements",
         default=0.5
     )
+
 
 class JobMatchScore(BaseModel):
     overall_match: confloat(ge=0, le=100) = Field(
@@ -52,6 +57,7 @@ class JobMatchScore(BaseModel):
             "industry": 0.10
         }
     )
+
 
 class JobRequirements(BaseModel):
     technical_skills: List[str] = Field(
@@ -183,36 +189,48 @@ class JobRequirements(BaseModel):
         default_factory=list
     )
 
+
 class ResumeOptimization(BaseModel):
     content_suggestions: List[Dict[str, str]] = Field(
-        description="List of content optimization suggestions with 'before' and 'after' examples"
+        description="List of content optimization suggestions with 'before' and 'after' examples",
+        default_factory=list
     )
     skills_to_highlight: List[str] = Field(
-        description="List of skills that should be emphasized based on job requirements"
+        description="List of skills that should be emphasized based on job requirements",
+        default_factory=list
     )
     achievements_to_add: List[str] = Field(
-        description="List of achievements that should be added or modified"
+        description="List of achievements that should be added or modified",
+        default_factory=list
     )
     keywords_for_ats: List[str] = Field(
-        description="List of important keywords for ATS optimization"
+        description="List of important keywords for ATS optimization",
+        default_factory=list
     )
     formatting_suggestions: List[str] = Field(
-        description="List of formatting improvements"
+        description="List of formatting improvements",
+        default_factory=list
     )
+
 
 class CompanyResearch(BaseModel):
     recent_developments: List[str] = Field(
-        description="List of recent company news and developments"
+        description="List of recent company news and developments",
+        default_factory=list
     )
     culture_and_values: List[str] = Field(
-        description="Key points about company culture and values"
+        description="Key points about company culture and values",
+        default_factory=list
     )
     market_position: Dict[str, List[str]] = Field(
-        description="Information about market position, including competitors and industry standing"
+        description="Information about market position, including competitors and industry standing",
+        default_factory=dict
     )
     growth_trajectory: List[str] = Field(
-        description="Information about company's growth and future plans"
+        description="Information about company's growth and future plans",
+        default_factory=list
     )
     interview_questions: List[str] = Field(
-        description="Strategic questions to ask during the interview"
+        description="Strategic questions to ask during the interview",
+        default_factory=list
     )
