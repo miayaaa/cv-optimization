@@ -1,61 +1,60 @@
 from typing import List, Dict, Optional
-from pydantic import BaseModel, Field, confloat
+from pydantic import BaseModel, Field
 
 
 class SkillScore(BaseModel):
     skill_name: str = Field(description="Name of the skill being scored")
     required: bool = Field(
         description="Whether this skill is required or nice-to-have")
-    match_level: confloat(ge=0, le=1) = Field(
-        description="How well the candidate's experience matches (0-1)")
+    match_level: float = Field(
+        ge=0.0, le=1.0, description="How well the candidate's experience matches (0–1)")
     years_experience: Optional[float] = Field(
-        description="Years of experience with this skill", default=None)
-    context_score: confloat(ge=0, le=1) = Field(
-        description="How relevant the skill usage context is to the job requirements",
-        default=0.5
+        default=None,
+        description="Years of experience with this skill"
+    )
+    context_score: float = Field(
+        default=0.5,
+        ge=0.0,
+        le=1.0,
+        description="How relevant the skill usage context is to the job requirements"
     )
 
 
 class JobMatchScore(BaseModel):
-    overall_match: confloat(ge=0, le=100) = Field(
-        description="Overall match percentage (0-100)"
-    )
-    technical_skills_match: confloat(ge=0, le=100) = Field(
-        description="Technical skills match percentage"
-    )
-    soft_skills_match: confloat(ge=0, le=100) = Field(
-        description="Soft skills match percentage"
-    )
-    experience_match: confloat(ge=0, le=100) = Field(
-        description="Experience level match percentage"
-    )
-    education_match: confloat(ge=0, le=100) = Field(
-        description="Education requirements match percentage"
-    )
-    industry_match: confloat(ge=0, le=100) = Field(
-        description="Industry experience match percentage"
-    )
+    overall_match: float = Field(
+        ge=0.0, le=100.0, description="Overall match percentage (0–100)")
+    technical_skills_match: float = Field(
+        ge=0.0, le=100.0, description="Technical skills match percentage")
+    soft_skills_match: float = Field(
+        ge=0.0, le=100.0, description="Soft skills match percentage")
+    experience_match: float = Field(
+        ge=0.0, le=100.0, description="Experience level match percentage")
+    education_match: float = Field(
+        ge=0.0, le=100.0, description="Education requirements match percentage")
+    industry_match: float = Field(
+        ge=0.0, le=100.0, description="Industry experience match percentage")
+
     skill_details: List[SkillScore] = Field(
-        description="Detailed scoring for each skill",
-        default_factory=list
+        default_factory=list,
+        description="Detailed scoring for each skill"
     )
     strengths: List[str] = Field(
-        description="List of areas where candidate exceeds requirements",
-        default_factory=list
+        default_factory=list,
+        description="List of areas where candidate exceeds requirements"
     )
     gaps: List[str] = Field(
-        description="List of areas needing improvement",
-        default_factory=list
+        default_factory=list,
+        description="List of areas needing improvement"
     )
     scoring_factors: Dict[str, float] = Field(
-        description="Weights used for different scoring components",
         default_factory=lambda: {
             "technical_skills": 0.35,
             "soft_skills": 0.20,
             "experience": 0.25,
             "education": 0.10,
             "industry": 0.10
-        }
+        },
+        description="Weights used for different scoring components"
     )
 
 

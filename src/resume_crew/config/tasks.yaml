@@ -1,7 +1,19 @@
 analyze_job_task:
   description: >
     Analyze the {job_url} description and score the candidate's fit based on their resume.
-    Output will be saved as structured JSON data.
+    You must extract structured job requirements and then evaluate the resume content
+    to compute a match score for each area listed below.
+
+    You MUST provide numeric scores (0–100) for all the following components:
+    - Technical Skills
+    - Soft Skills
+    - Experience
+    - Education
+    - Industry Knowledge
+    - Overall Match Score
+
+    Do NOT leave any score as 0.0 unless the candidate clearly lacks that qualification.
+    If uncertain, use best-effort estimates based on resume evidence only.
 
     1. Extract Requirements:
        - Technical skills (required vs nice-to-have)
@@ -12,41 +24,44 @@ analyze_job_task:
 
     2. Score Technical Skills (35% of total):
        - For each required skill:
-         * Match Level (0-1): How well does candidate's experience match?
-         * Years Experience: Compare to required years
-         * Context Score: How relevant is their usage of the skill?
+         * Match Level (0-1)
+         * Years Experience
+         * Context Score
        - Calculate weighted average based on skill importance
 
-    3. Score Soft Skills (20% of total):
-       - Identify soft skills from resume
-       - Compare against job requirements
-       - Consider context and demonstration of skills
+    3. Score Soft Skills (20% of total)
 
-    4. Score Experience (25% of total):
-       - Years of relevant experience
-       - Role similarity
-       - Industry relevance
-       - Project scope and complexity
+    4. Score Experience (25% of total)
 
-    5. Score Education (10% of total):
-       - Degree level match
-       - Field of study relevance
-       - Additional certifications
+    5. Score Education (10% of total)
 
-    6. Score Industry Knowledge (10% of total):
-       - Years in similar industry
-       - Domain expertise
-       - Industry-specific achievements
+    6. Score Industry Knowledge (10% of total)
 
-    7. Calculate Overall Score:
-       - Weighted average of all components
-       - Identify key strengths and gaps
-       - Provide detailed scoring explanation
+    7. Calculate Overall Score (weighted average)
+
+    Also identify:
+    - Key strengths
+    - Gaps
+    - Detailed score explanation
 
   expected_output: >
-    Structured JSON data containing job analysis and scoring details according to
-    the JobRequirements model schema.
+    Structured JSON data matching the JobRequirements model schema.
+    Include all match_score fields:
+    - technical_skills_match
+    - soft_skills_match
+    - experience_match
+    - education_match
+    - industry_match
+    - overall_match
+
+    Include:
+    - List of strengths
+    - List of gaps
+    - Explanation of each score
+    - Detailed skill_scores if possible
+
   agent: job_analyzer
+
 
 optimize_resume_task:
   description: >
