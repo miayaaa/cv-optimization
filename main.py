@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-import sys
+from src.resume_crew.crew import ResumeCrew
 import warnings
 
-from resume_crew.crew import ResumeCrew
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
