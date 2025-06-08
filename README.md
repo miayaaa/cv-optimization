@@ -1,4 +1,4 @@
-# Resume Optimization System
+# Resume Optimization Agent
 
 This project helps job seekers automatically optimize their resumes for specific job postings.  
 It analyzes job descriptions, evaluates resumes, researches target companies, and produces a tailored resume and interview report — all powered by AI agents.
@@ -10,13 +10,15 @@ It analyzes job descriptions, evaluates resumes, researches target companies, an
 
 ```bash
 resume-optimization-crew/
-│
-├── main.py # Entry point: run the crew with job URL & company name
-├── crew.py # Defines ResumeCrew (agents & tasks)
-├── models.py # Pydantic models for structured outputs
-├── config/ # Agent roles and task descriptions
-├── tools/ # Custom tools (e.g. PDF reader, web scraper)
-└── output/ # Generated markdown files and analysis
+├── app.py                 # Streamlit UI for resume optimization
+├── main.py                # Entry point to run the CrewAI pipeline
+├── src/resume_crew/
+│   ├── crew.py            # Defines agents and tasks
+│   ├── models.py          # Output data models (Pydantic)
+│   ├── config/            # YAML files for agents and tasks
+│   └── tools/             # Custom tools (PDF reader, scraper, etc.)
+├── output/                # AI-generated resume and report
+└── README.md              # Project documentation
 ```
 
 ## 🧩 Core Components
@@ -42,6 +44,22 @@ resume-optimization-crew/
 - **Processing:** AI agents execute tasks sequentially
 - **Output:** JSON files + markdown resume & report in `/output/`
 
+## 🖥️ Streamlit App Interface
+A simple web interface is provided via Streamlit, allowing users to upload their resume, enter a job link and company name, and download the results.
+
+▶ How to Run
+```bash
+streamlit run app.py
+```
+### 📤 Features
+
+- Upload your resume (PDF)
+- Input job URL (e.g., LinkedIn posting)
+- Enter target company name
+- Click 🚀 Optimize Resume to run all agents
+- Download:
+    - optimized_resume.md
+    - final_report.md
 
 ## 🛠 Tools Used
 

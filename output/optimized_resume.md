@@ -1,4 +1,4 @@
-# John Doe  
+## Mia Yang  
 [Your Address]  
 Auckland, New Zealand  
 [Your Email] | [Your Phone Number]  
