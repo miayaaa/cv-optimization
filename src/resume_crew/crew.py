@@ -34,7 +34,7 @@ class ResumeCrew():
             config=self.agents_config['job_analyzer'],
             verbose=True,
             tools=[ScrapeWebsiteTool()],
-            llm=LLM("gpt-4.1-mini")
+            llm=LLM("gpt-4o-mini")
         )
 
     @agent
